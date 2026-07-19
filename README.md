@@ -6,7 +6,7 @@ student profiles — with columns for award amount, deadline, category
 high school must formally nominate the student, and a direct link to the
 official scholarship website.
 
-**[Live view →](index.html)** (open via GitHub Pages once enabled, see below)
+**[Live view →](https://yweelm.github.io/Uscollege/)**
 
 ## Who this is built for
 
