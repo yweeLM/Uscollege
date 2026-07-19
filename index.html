@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scholarship Opportunity Dashboard</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <h1>🎓 Scholarship Opportunity Dashboard</h1>
+    <p class="subtitle">A queryable database of scholarships — filterable by school, industry/major, minority status, deadline, and nomination requirements.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="candidate-cards" id="candidateCards" aria-label="Candidate profiles">
+    <!-- populated by JS -->
+  </section>
+
+  <section class="controls" aria-label="Filters">
+    <div class="controls-row">
+      <input type="search" id="searchBox" placeholder="Search by name, provider, field, or keyword…" aria-label="Search scholarships">
+      <button id="resetFilters" class="btn btn-ghost" type="button">Reset filters</button>
+      <button id="downloadCsv" class="btn btn-ghost" type="button">⬇ Download CSV (current view)</button>
+    </div>
+
+    <div class="controls-grid">
+      <div class="filter-group">
+        <label for="filterCandidate">Candidate match</label>
+        <select id="filterCandidate">
+          <option value="">Any</option>
+          <option value="A">Candidate A — Brown / Cognitive Neuroscience</option>
+          <option value="B">Candidate B — UK / Business, Psych, Finance</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="filterCategory">Category</label>
+        <select id="filterCategory">
+          <option value="">All categories</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="filterMinority">Minority / heritage focus</label>
+        <select id="filterMinority">
+          <option value="">Any</option>
+          <option value="__any__">Any minority-designated award</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="filterField">Field of study</label>
+        <select id="filterField">
+          <option value="">All fields</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="filterNomination">Nomination required</label>
+        <select id="filterNomination">
+          <option value="">Any</option>
+          <option value="yes">Requires school nomination</option>
+          <option value="no">No nomination needed</option>
+        </select>
+      </div>
+
+      <div class="filter-group checkbox-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="filterMin5k" checked>
+          Award can reach $5,000+ (floor filter, no cap)
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <section class="results-meta">
+    <span id="resultCount">30 scholarships</span>
+    <span class="sort-wrap">
+      Sort by:
+      <select id="sortBy">
+        <option value="name">Name (A–Z)</option>
+        <option value="amount_max_desc">Award amount (high → low)</option>
+        <option value="amount_min_asc">Award amount (low → high)</option>
+        <option value="deadline">Deadline</option>
+      </select>
+    </span>
+  </section>
+
+  <section class="table-wrap" aria-label="Scholarship results">
+    <table id="scholarshipTable">
+      <thead>
+        <tr>
+          <th>Scholarship</th>
+          <th>Provider</th>
+          <th>Award Amount</th>
+          <th>Deadline</th>
+          <th>Category</th>
+          <th>Field(s) of Study</th>
+          <th>Eligibility Stage</th>
+          <th>Nomination?</th>
+          <th>Fit — Candidate A</th>
+          <th>Fit — Candidate B</th>
+          <th>Website</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <!-- populated by JS -->
+      </tbody>
+    </table>
+    <p id="noResults" class="no-results" hidden>No scholarships match the current filters. Try resetting filters.</p>
+  </section>
+
+  <footer class="page-footer">
+    <p><strong>Disclaimer:</strong> <span id="disclaimerText"></span></p>
+    <p class="last-updated">Last updated: <span id="lastUpdated"></span> · Data source: <code>data/scholarships.json</code></p>
+  </footer>
+
+</main>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
