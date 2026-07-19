@@ -49,14 +49,14 @@ python3 -m http.server 8000
 
 ## Publishing on GitHub Pages
 
-1. Push this repository to GitHub (already done if you're reading this from
-   the repo).
-2. In the repo, go to **Settings → Pages**.
-3. Under **Build and deployment**, choose **Deploy from a branch**.
-4. Pick the branch this content lives on and the **/ (root)** folder, then
-   save.
-5. GitHub will publish the site at
-   `https://<your-username>.github.io/<repo-name>/` within a minute or two.
+Already live at **https://yweelm.github.io/Uscollege/**, deployed by
+`.github/workflows/deploy-pages.yml` on every push to this branch.
+
+To set this up on a fresh fork/repo: go to **Settings → Pages → Build and
+deployment → Source**, choose **GitHub Actions**, then push — the workflow
+handles the rest. (First-time enablement of Pages has to be a human click in
+the UI; it can't be done from an API token, which is why this step isn't
+automated.)
 
 ## How to use the dashboard
 
@@ -78,6 +78,29 @@ python3 -m http.server 8000
   the database for completeness (e.g. junior-year "pipeline" scholarships).
 - **Download CSV (current view)** exports exactly the filtered/sorted rows
   you're looking at.
+
+## Keeping the data fresh
+
+`.github/workflows/scholarship-data-check.yml` runs every Monday (and can be
+triggered manually from the **Actions** tab → *Scholarship Data Check* →
+*Run workflow*). It checks two mechanical things for every entry:
+
+1. **Does the URL still resolve?** Confirmed-dead links (404s, DNS failures)
+   are reported separately from bot-blocked responses (403/429/503 from a
+   provider's WAF, which don't necessarily mean the page is gone).
+2. **Is `last_verified` more than 180 days old?**
+
+Results are posted to a standing GitHub Issue titled *"Scholarship Data
+Check"* (updated in place each run, not a new issue every week) so there's
+one place to see what needs attention.
+
+**What it deliberately doesn't do:** re-read each provider's page to check
+whether the amount or deadline actually changed. That requires understanding
+page content, not just an HTTP status code, so it's left as a manual (or
+Claude-assisted) research pass — ask Claude Code to re-verify the flagged
+rows and it'll research the current cycle's details and update
+`data/scholarships.json` for you to review before committing, the same way
+the original database was built.
 
 ## Important: verify before applying
 
